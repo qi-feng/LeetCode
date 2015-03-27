@@ -1,2 +1,2 @@
 # LeetCode
-LeetCode OJ Exercises
+LeetCode OJ Exercises. Normally only the class Solution is submitted. 
