@@ -1,0 +1,29 @@
+#!/bin/bash
+fname='file.txt'
+#fname=$1
+nlines=$(wc -l < "$fname")
+ncol=$(awk '{print NF; exit}' $fname)
+#echo nlines $nlines ncol $ncol
+row_id=0
+{
+  while read -a line; do
+    row_id=$((row_id+1))
+    #echo read row $row_id
+    for j in "${!line[@]}"; do
+      i=$((j+1))
+      #echo row $row_id column $i
+      #echo $(( (row_id-1) * (ncol) + i))
+      r[$(( (row_id-1) * ncol + i))]=${line[$j]}
+      #echo '####' element ${r[$(( (row_id-1) * (ncol) + i))]} '####'
+    done
+  done
+} < $fname
+
+for(( j=1; j<=$ncol; j++)) do
+  for(( k=1; k<=$((nlines)); k++)) do
+  if [ -n "${r[$(( (k-1) * ncol + j))]}" ]; then
+      echo -n "${r[$(( (k-1) * ncol + j))]}"' '
+    fi
+  done
+  echo
+done
