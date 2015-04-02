@@ -1,0 +1,5 @@
+#!/bin/bash
+fname=$1
+#fname='words.txt'
+tr -s ' ' '\n' < $fname | sort | uniq -c | sort -nr |awk '{print $2,$1;}' 
+
